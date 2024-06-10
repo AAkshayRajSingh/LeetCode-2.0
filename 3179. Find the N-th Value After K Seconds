@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int valueAfterKSeconds(int n, int k) {
+        int x = 1000000007;
+        vector<int> store(n,1);
+        while(k>0)
+        {
+            for(int i=1;i<n;i++){
+            store[i]=(store[i]+store[i-1])%x;
+        }
+         k--;
+        }
+        return store[n-1];
+    }
+};
