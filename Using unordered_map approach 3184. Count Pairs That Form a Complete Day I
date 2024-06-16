@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int countCompleteDayPairs(vector<int>& h) {
+        unordered_map<int,int> mp;
+        int days=0;
+        int n=h.size();
+        for(int hours:h){
+            int remainder = hours%24;
+            int complement = (24 - remainder)%24;
+            if(mp.find(complement)!=mp.end()){
+                days+=mp[complement];
+            }
+            mp[remainder]++;
+        }
+        return days;
+    }
+};
