@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int ans;
+    void solve(int i,vector<vector<int>> &a,vector<vector<int>> &b,vector<int>&vis,int c,int s){
+        if(c==b.size()){
+            ans=min(ans,s);
+            return ;
+        }
+        for(int j=0;j<b.size();j++){
+            if(vis[j]==1){
+                continue;
+            }
+            vis[j]=1;
+            int x=abs(a[i][0]-b[j][0])+abs(a[i][1]-b[j][1]);
+            solve(i+1,a,b,vis,c+1,s+x);
+            vis[j]=0;
+        }
+    }
+    int minimumMoves(vector<vector<int>>& v) {
+        vector<vector<int>> a;//filled
+        vector<vector<int>> b;//empty
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                if(v[i][j]==0){
+                    vector<int>t{i,j};
+                    b.push_back(t);
+                }
+                else{
+                    int x=v[i][j]-1;
+                    vector<int>t{i,j};
+                    while(x--){
+                        a.push_back(t);
+                    }
+                }
+            }
+        }
+        int x=b.size();
+        vector<int> vis(x,0);
+        ans=INT_MAX;
+        solve(0,a,b,vis,0,0);
+        return ans;
+    }
+};
