@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string simplifyPath(string s) {
+        string ok;
+        vector<string> store;
+        int n=s.size();
+        int i=1;
+        while(i<n){
+            while(s[i]=='/') i++;
+            while(s[i] and s[i]!='/') ok+=s[i++];
+            if(ok==".." and store.size()) store.pop_back();
+            else if(ok.size() and ok!="." and ok!="..") store.push_back(ok);
+            ok.clear();
+        }
+        ok="/";
+        for(auto stre:store)
+        ok+=stre,ok+="/";
+        if(ok.size()>1) ok.pop_back();
+        return ok;
+    }
+};
