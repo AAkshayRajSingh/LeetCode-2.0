@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int numUniqueEmails(vector<string>& emails) {
+        unordered_set<string> st;
+        for(const string& it:emails){
+            string local;
+            string domain;
+            bool found_at=false;
+            bool found_plus=false;
+            for(char c:it){
+                if(c=='@'){
+                    found_at=true;
+                }
+                if(found_at){
+                     domain+=c;
+                }
+                else{
+                    if(c=='+'){
+                        found_plus=true;
+                    }
+                    if(c!='.' && !found_plus){
+                        local+=c;
+                    }
+                }
+            }
+            st.insert(local+domain);
+        }
+        return st.size();
+    }
+};
