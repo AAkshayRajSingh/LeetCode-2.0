@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int distanceBetweenBusStops(vector<int>& distance, int start, int destination) {
+        int dist_clock=0,dist_aclock=0,size=distance.size();
+        int start1=min(start,destination);
+        int dest1=max(start,destination);
+        for(int i=0;i<size;i++){
+            if(i>=start1 && i<dest1){
+                dist_clock+=distance[i];
+            }
+            else{
+                dist_aclock+=distance[i];
+            }
+        }
+        return min(dist_clock,dist_aclock);
+    }
+};
