@@ -1,0 +1,8 @@
+class Solution {
+public:
+    string reversePrefix(string word, char ch) {
+        auto occ = word.find(ch);
+        reverse(word.begin(),word.begin()+occ+1);
+        return word;
+    }
+};
