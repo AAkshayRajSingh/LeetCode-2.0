@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int distinctAverages(vector<int>& nums) {
+     unordered_set<int> us;
+     sort(nums.begin(),nums.end());
+     int l=0,r=nums.size();
+     while(l<r){
+        us.insert(nums[l++]+nums[--r]);
+     }   
+     return us.size();
+    }
+};
