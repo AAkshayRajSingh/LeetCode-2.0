@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> getFinalState(vector<int>& nums, int k, int multiplier) {
+        for(int i=0;i<k;i++){
+            // find min;
+            int min_val=0;
+            for(int j=1;j<nums.size();j++){
+                if(nums[j]<nums[min_val])
+                    min_val = j;
+                } nums[min_val]*=multiplier;
+        }
+       
+        return nums;
+    }
+};
