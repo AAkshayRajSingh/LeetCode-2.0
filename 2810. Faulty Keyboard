@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string finalString(string s) {
+        string ans="";
+        for(char ch : s){
+            if(ch!='i'){
+                ans+=ch;
+            }
+            else{
+                int start=0;
+                int end=ans.size()-1;
+                while(start<end){
+                    std::swap(ans[start],ans[end]);
+                    start++;
+                    end--;
+                }
+            }
+        }
+        return ans;
+    }
+};
