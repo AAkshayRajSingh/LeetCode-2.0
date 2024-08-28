@@ -1,0 +1,19 @@
+class Solution {
+public:
+    double trimMean(vector<int>& arr) {
+        //double ans=0;
+        sort(arr.begin(),arr.end());
+        int n=arr.size();
+        int to_remove=(0.05)*arr.size();
+        double sum=0;
+        double total = n - (to_remove*2);
+        for(int i=to_remove;i<arr.size()-to_remove;i++){
+            sum+=arr[i];
+        }
+        cout<<"to remove:"<<to_remove<<endl;
+        cout<<sum<<endl;
+        cout<<total<<endl;
+
+        return sum/(total);
+    }
+};
