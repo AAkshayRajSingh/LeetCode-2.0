@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool isAlienSorted(vector<string>& words, string order) {
+        map<char,int> dictAlien;
+        for(int i=0;i<order.size();i++){
+            dictAlien[order[i]] = 'a'+i;
+        }
+        int len = words.size();
+        for(int i=0;i<len;i++){
+            for(int j=0;j<words[i].size();j++){
+                words[i][j]=dictAlien[words[i][j]];
+            }
+        }
+        return is_sorted(words.begin(),words.end());
+    }
+};
