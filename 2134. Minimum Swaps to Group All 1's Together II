@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int minSwaps(vector<int>& nums) {
+        int n=nums.size();
+        int windSize=std::accumulate(nums.begin(),nums.end(),0);
+        std::vector<int> sl(nums.begin(),nums.begin()+windSize);
+        int s=accumulate(sl.begin(),sl.end(),0);
+        int maxS=s;
+        for(int i=0;i<n;i++){
+            if((nums[(i+windSize)%n])==1)
+                s+=1;
+            if(nums[i]==1){
+                s-=1;
+            
+            }
+            maxS=max(maxS,s);
+        }
+        return windSize-maxS;
+    }
+};
