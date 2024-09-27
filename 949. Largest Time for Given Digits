@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string largestTimeFromDigits(vector<int>& a) {
+        sort(a.begin(),a.end());
+        string s;
+        do{
+            if(a[0]*10+a[1]<24 && a[2]<6){
+                int h=a[0]*10+a[1];
+                int m=a[2]*10+a[3];
+                string t=format("{:02}:{:02}",h,m);
+                s=max(s,t);
+            }
+        }
+        while(std::next_permutation(a.begin(),a.end()));
+        return s;
+    }
+};
