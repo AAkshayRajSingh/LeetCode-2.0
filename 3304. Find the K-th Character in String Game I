@@ -1,0 +1,15 @@
+class Solution {
+public:
+    char kthCharacter(int k) {
+        string start="a";
+        while(start.length()<k){
+            string temp="";
+        for(char c:start){
+            if(c=='z') temp.push_back('a');
+            temp.push_back(c+1);
+        }
+        start+=temp;
+    }
+    return start[k-1];
+    }
+};
