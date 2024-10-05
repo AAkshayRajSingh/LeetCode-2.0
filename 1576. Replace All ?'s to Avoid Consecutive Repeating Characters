@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string modifyString(string s) {
+        string word="";
+        int n=s.length();
+        for(int i=0;i<n;i++){
+            while(i<n && s[i]!='?'){
+                word+=s[i];
+                i++;
+            }
+            if(s[i]=='?'){
+                char left=i>0?word.back():' ';
+                char right=i+1<n?s[i+1]:' ';
+                for(char ch='a';ch<='z';ch++){
+                    if(ch==left || ch==right) continue;
+                    else{
+                        word+=ch;
+                        break;
+                    }
+                }
+            }
+        }
+        return word;
+    }
+};
