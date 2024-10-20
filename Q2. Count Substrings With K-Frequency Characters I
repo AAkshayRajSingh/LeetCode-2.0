@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s, int k) {
+        int count=0;
+        int n=s.size();
+        if(k==1)
+            return (n*(n+1))/2;
+        for(int st=0;st<s.size();st++){
+            unordered_map<char,int> freq;
+            for(int e=st;e<s.size();e++){
+                char ch=s[e];
+                freq[ch]++;
+                bool valid=false;
+                for(auto &x:freq){
+                    if(x.second>=k){
+                        valid=true;
+                        break;
+                    }
+                }
+                if(valid){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+};
