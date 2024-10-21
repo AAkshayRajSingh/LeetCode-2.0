@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxTurbulenceSize(vector<int>& arr) {
+        if(arr.size()==1) return 1;
+        int res=1;
+        int i;
+        int count=1;
+        for(int k=0;k<arr.size()-1;k++){
+            if(k%2==0 && arr[k]<arr[k+1]) count++;
+            else if(k%2==1 && arr[k]>arr[k+1]) count++;
+            else{
+                res=max(res,count);
+                count=1;
+            }
+        }
+        res=max(res,count);
+        count=1;
+        for(int k=0;k<arr.size()-1;k++){
+            if(k%2==0 && arr[k]>arr[k+1]) count++;
+            else if(k%2==1 && arr[k]<arr[k+1]) count++;
+            else{
+                res=max(res,count);
+                count=1;
+            }
+        }
+        res=max(res,count);
+        return res;
+    }
+};
