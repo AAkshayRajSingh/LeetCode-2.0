@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> peopleIndexes(vector<vector<string>>& comp) {
+        int n=comp.size();
+        vector<int>ans;
+        for(auto &x:comp){
+            sort(begin(x),end(x));
+        }
+        for(int i=0;i<n;i++){
+            bool f=false;
+            for(int j=0;j<n&&!f;j++){
+                if(i!=j){
+                    f=includes(begin(comp[j]),end(comp[j]),begin(comp[i]),end(comp[i]));
+                }
+            }
+            if(!f) 
+                ans.push_back(i);
+        }
+        return ans;
+    }
+};
