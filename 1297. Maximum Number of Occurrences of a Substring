@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxFreq(string s, int maxLetters, int minSize, int maxSize) {
+        int n=s.size();
+        map<string,int> mp;
+        int ans=0;
+        for(int i=0;i<=n-minSize;i++){
+            mp[s.substr(i,minSize)]++;
+        }
+        for(auto [x,y]:mp){
+            set<char> substring(x.begin(),x.end());
+            if(substring.size()<=maxLetters){
+                ans=max(ans,y);
+            }
+        }
+        return ans;
+    }
+};
