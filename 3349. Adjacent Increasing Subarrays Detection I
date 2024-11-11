@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool hasIncreasingSubarrays(vector<int>& nums, int k) {
+        int n=nums.size();
+        for(int i=0;i<=n-2*k;i++){
+            bool first=true;
+            bool second =true;
+
+            for(int x=i;x<i+k-1;x++){
+                if(nums[x]>=nums[x+1]){
+                    first=false;
+                    break;
+                }
+            }
+            if(!first) continue;
+            for(int y=i+k;y<i+2*k-1;y++){
+                if(nums[y]>=nums[y+1]){
+                    second=false;
+                    break;
+                }
+            }
+            if(first && second) return true;
+        } 
+        return false;
+    }
+};
