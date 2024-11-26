@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool isZeroArray(vector<int>& nums, vector<vector<int>>& queries) {
+        vector<int> dp(nums.size()+1);
+        int curr=0;
+        for(const auto&querie:queries){
+            dp[querie[0]]++;
+            dp[querie[1]+1]--;
+        }
+        for(int i=0;i<nums.size();++i){
+            curr+=dp[i];
+            if(nums[i]-curr>0)
+                return false;
+        }
+        return true;
+    }
+};
