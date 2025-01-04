@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool isValidSum(int target,vector<int> &nums,int mid){
+        int cs=0;
+        for(int i=0;i<mid;i++){
+            cs+=nums[i];
+        }
+            if(cs>=target)
+                return true;
+        for(int i=mid;i<nums.size();i++){
+            cs+=nums[i]-nums[i-mid];
+            if(cs>=target)
+                return true;
+        }
+        return false;
+    }
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int n=nums.size();
+        int s=1;
+        int e=n;
+        int res=n+1;
+        while(s<=e){
+            int mid=s+((e)-s)/2;
+            if(isValidSum(target,nums,mid)){
+                res=mid;
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+        return res==n+1 ?0:res;
+    }
+};
