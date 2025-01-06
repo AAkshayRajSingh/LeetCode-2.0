@@ -1,0 +1,19 @@
+class Solution {
+public:
+    long long recur(vector<int> &nums,int i,int n,long long ans, int prev){
+        if(i==n)
+        return ans;
+        if(nums[i]!=nums[i-1]){
+            ans+=i-prev;
+        }
+        else{
+            prev=i;
+        }
+        return recur(nums,i+1,n,ans,prev);
+    }
+    long long countAlternatingSubarrays(vector<int>& nums) {
+        int n=nums.size();
+        if(n==0) return 0;
+        return recur(nums,1,n,n,0);
+    }
+};
