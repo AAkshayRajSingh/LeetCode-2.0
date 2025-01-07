@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int numOfPairs(vector<string>& nums, string target) {
+        int cnt=0;
+        int n=target.size();
+        unordered_map<string,int> mp;
+        for(auto digit : nums)
+            mp[digit]++;
+        for(int i=0;i<target.size();i++){
+            string d1=target.substr(0,i);
+            string d2=target.substr(i,n);
+            if(d1==d2){
+                cnt+=mp[d1]*(mp[d2]-1);
+            }
+            else{
+                cnt+=mp[d1]*mp[d2];
+            }
+        }
+        return cnt;
+    }
+};
