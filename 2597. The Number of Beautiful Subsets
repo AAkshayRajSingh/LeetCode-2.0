@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void solve(int index,int &count,unordered_map<int,int> &mp,vector<int> &nums,int k){
+        if(index==nums.size()){
+            count++;
+            return;
+        }
+        //exclude
+        solve(index+1,count,mp,nums,k);
+        //include
+        int  ele=nums[index];
+        if(mp[ele-k]==0 && mp[ele+k]==0){
+            mp[ele]++;
+            solve(index+1,count,mp,nums,k);
+            mp[ele]--;
+        }
+    }
+    int beautifulSubsets(vector<int>& nums, int k) {
+        unordered_map<int,int> mp;
+        int count=0;
+        solve(0,count,mp,nums,k);
+        return count-1;
+    }
+};
