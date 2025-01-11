@@ -1,0 +1,68 @@
+class Solution {
+public:
+    bool checkFlush(bool flush,vector<char> &suits){
+        unordered_map<char,int> mp;
+        flush=false;
+        for(auto it:suits){
+            mp[it]++;
+        }
+        for(auto itx:mp){
+            if(itx.second>=5){
+                flush=true;
+            }
+        }
+        return flush;
+    }
+    bool checkThreeOfKind(bool threeOfKind,vector<int> &ranks){
+        unordered_map<int,int> mp;
+        threeOfKind=false;
+        for(auto it:ranks){
+            mp[it]++;
+        }
+        for(auto x:mp){
+            if(x.second>=3){
+                threeOfKind=true;
+            }
+        }
+        return threeOfKind;
+    }
+        bool checkPair(bool pair,vector<int> &ranks){
+        unordered_map<int,int> mp;
+        pair=false;
+        for(auto it:ranks){
+            mp[it]++;
+        }
+        for(auto x:mp){
+            if(x.second==2){
+                pair=true;
+            }
+        }
+        return pair;
+    }
+    string bestHand(vector<int>& ranks, vector<char>& suits) {
+        int r=ranks.size();
+        int n=suits.size();
+        bool flush=false;
+        bool threeofKind=false;
+        bool pair=false;
+        bool highCard=false;
+        string ans;
+        //check flush:
+        if(suits.size()>=5){
+            if(checkFlush(flush,suits) && threeofKind==false && pair==false && highCard==false && ans.size()==0)
+                ans+="Flush";
+        }
+        //check 3 of kind
+        if(checkThreeOfKind(threeofKind,ranks) && flush==false && pair==false && highCard==false && ans.size()==0){
+            ans+="Three of a Kind";
+        }
+        // Pairs
+        if(checkPair(pair,ranks) && flush==false && threeofKind==false && highCard==false && ans.size()==0){
+            ans+="Pair";
+        }
+        if(ans.size()==0){
+            ans+="High Card";
+        }
+        return ans;
+    }
+};
