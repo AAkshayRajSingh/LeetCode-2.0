@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxScore(string s) {
+        int n=s.size();
+        int max_val=INT_MIN;
+        for(int i=1;i<n;i++){
+            //left Side
+            int cnt=0;
+            for(int x=0;x<i;x++){
+                if(s[x]=='0'){
+                    cnt+=1;
+                }
+                else
+                    continue;
+            }
+            //right side
+            for(int y=i;y<n;y++){
+                if(s[y]=='1'){
+                    cnt+=1;
+                }
+                else
+                    continue;
+            }
+            max_val=max(max_val,cnt);
+        }
+        return max_val;
+    }
+};
