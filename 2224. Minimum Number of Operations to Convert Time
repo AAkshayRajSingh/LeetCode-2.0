@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int convertTime(string current, string correct) {
+        vector<int> steps={60,15,5,1};
+        int count=0;
+        int prev=60*std::stoi(current.substr(0,2))+std::stoi(current.substr(3,2));
+        int curr=60*std::stoi(correct.substr(0,2))+std::stoi(correct.substr(3,2));
+        int target=curr-prev;
+        for(int step:steps){
+            count+=target/step;
+            target=target%step;
+        }
+        return count;
+    }
+};
