@@ -1,0 +1,59 @@
+class Solution {
+public:
+    // bool solveMem(vector<int>&nums,int index,int target,vector<vector<int>> &dp){
+    //     if(target==0)
+    //         return true;
+    //     if(target<0 || index<0)
+    //         return false;
+    //     if(dp[index][target]!=-1) return dp[index][target];
+    //     bool incl=solveMem(nums,index-1,target-nums[index],dp);
+    //     bool excl=solveMem(nums,index-1,target,dp);
+    //     if(incl==true || excl==true)
+    //         dp[index][target]=true;
+    //     else
+    //         dp[index][target]=false;
+    //     return dp[index][target];
+    // }
+bool solveTab(vector<int>& nums, int target) {
+    int n = nums.size();
+    vector<vector<bool>> dp(n, vector<bool>(target + 1, false));
+
+    // Base Case: If target is 0, we can always achieve it with an empty subset
+    for (int i = 0; i < n; i++) {
+        dp[i][0] = true;
+    }
+
+    // Base Case: If we only have the first element, check if it equals the target
+    if (nums[0] <= target) {
+        dp[0][nums[0]] = true;
+    }
+
+    // Fill the DP table
+    for (int i = 1; i < n; i++) {  // Iterate over all items
+        for (int j = 1; j <= target; j++) {  // Iterate over all possible target sums
+            bool incl = false;
+            if (j - nums[i] >= 0) {  // Check if the current element can be included
+                incl = dp[i - 1][j - nums[i]];
+            }
+            bool excl = dp[i - 1][j];  // Exclude the current element
+
+            dp[i][j] = incl || excl;
+        }
+    }
+
+    // The answer will be stored in the last cell of the DP table
+    return dp[n - 1][target];
+}
+    bool canPartition(vector<int>& nums) {
+        int n=nums.size();
+        int sum=0;
+        for(auto it:nums){
+            sum+=it;
+        }
+        if(sum%2!=0)
+            return false;
+        int target=sum/2;
+        vector<vector<int>> dp(n,vector<int> (target+1,-1));
+        return solveTab(nums,target);
+    }
+};
