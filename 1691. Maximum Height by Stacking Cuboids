@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool check(vector<int> &oldB,vector<int> &newB){
+        if(oldB[0]<=newB[0] && oldB[1]<=newB[1] && oldB[2]<=newB[2])
+            return true;
+        else
+            return false;
+    }
+    int solve(vector<vector<int>>& cuboids,int n){
+        vector<int> currR(n+1,0);
+        vector<int> nextR(n+1,0);
+
+        for(int curr=n-1;curr>=0;curr--){
+            for(int prev=curr-1;prev>=-1;prev--){
+                int include=0;
+                if(prev==-1 || check(cuboids[prev],cuboids[curr])){
+                    include=cuboids[curr][2]+nextR[curr+1];
+                }
+                int exclude=0+currR[prev+1];
+                currR[prev+1]=max(include,exclude);
+            }
+            nextR=currR;
+        }
+        return nextR[0];
+    }
+    int maxHeight(vector<vector<int>>& cuboids) {
+        for(auto &a:cuboids){
+            sort(a.begin(),a.end());
+        }
+        sort(cuboids.begin(),cuboids.end());
+        return solve(cuboids,cuboids.size());
+    }
+};
