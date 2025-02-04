@@ -1,0 +1,19 @@
+class Solution {
+public:
+    long long minNumberOfSeconds(int mountainHeight, vector<int>& wt) {
+        long long low=1, high=LLONG_MAX-1;
+        while(low<=high){
+            long long mid=low+((high-low)>>1);
+            long long height=0;
+            for(const int t:wt){
+                long long h = static_cast<long long>(sqrt(2.0*mid/t +0.25 )-0.5);
+                height+=h;
+            }
+            if(height>=mountainHeight)
+                high=mid-1;
+            else
+                low=mid+1;
+        }
+    return low;
+    }
+};
