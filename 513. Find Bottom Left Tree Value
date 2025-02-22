@@ -1,0 +1,73 @@
+//BFS
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        if(!root) return 0;
+        queue<TreeNode*> q;
+        q.push(root);
+        int left_most;
+        while(!q.empty()){
+            int size=q.size();
+            for(int i=0;i<size;i++){
+                TreeNode* curr=q.front();
+                q.pop();
+                if(i==0 ){
+                    left_most=curr->val;
+                    // q.push(curr->left);
+                }
+                if(curr->left){
+                    q.push(curr->left);
+                    left_most=curr->left->val;
+                }
+                if(curr->right){
+                    q.push(curr->right);
+                }
+            }
+        }
+        return left_most;
+    }
+};
+
+-------------------
+//DFS
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void dfs(TreeNode* root,int &maxDepth,int depth,int &leftMost){
+        if(!root) return;
+        if(depth>maxDepth){
+            maxDepth=depth;
+            leftMost=root->val;
+        }
+        dfs(root->left,maxDepth,depth+1,leftMost);
+        dfs(root->right,maxDepth,depth+1,leftMost);
+    }
+    int findBottomLeftValue(TreeNode* root) {
+        int leftMost=0;
+        int maxDepth=-1;
+        dfs(root,maxDepth,0,leftMost);
+        return leftMost;
+    }
+};
