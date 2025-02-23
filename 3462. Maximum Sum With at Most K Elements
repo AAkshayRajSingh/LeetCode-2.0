@@ -1,0 +1,30 @@
+class Solution {
+public:
+    long long maxSum(vector<vector<int>>& grid, vector<int>& limits, int k) {
+        long long ans=0;
+        vector<pair<int,int>> singleGrid;
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+                singleGrid.push_back({grid[i][j],i});
+            }
+        }
+        sort(singleGrid.begin(),singleGrid.end(),[](const pair<int,int>&a,const pair<int,int>&b){
+            return a.first>b.first;
+        });
+        vector<int> count(grid.size(),0);
+        long long sum=0;
+        int lmt=0;
+        for(const auto& it:singleGrid){
+            int value=it.first;
+            int row=it.second;
+            if(count[row]<limits[row] && lmt<k){
+                count[row]++;
+                sum+=value;
+                lmt++;
+            }
+            if(lmt==k)
+                break;
+        }
+        return sum;
+    }
+};
