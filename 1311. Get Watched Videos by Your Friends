@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool vis[105];
+    vector<string> watchedVideosByFriends(vector<vector<string>>& watchedVideos, vector<vector<int>>& friends, int id, int level) {
+        unordered_map<string,int> videos;
+        queue<pair<int,int>> q;
+        q.push({id,0});
+        vector<string> ans;
+        int n=friends.size();
+        vis[id]=true;
+        while(!q.empty()){
+            auto node=q.front();
+            q.pop();
+            if(node.second==level){
+                for(string x:watchedVideos[node.first]){
+                    videos[x]++;
+                }
+                continue;
+            }
+            for(int x:friends[node.first]){
+                if(!vis[x]){
+                    vis[x]=true;
+                    q.push({x,node.second+1});
+                }
+            }
+        }
+        vector<pair<int,string>> movies;
+        for(auto it:videos) movies.push_back({it.second,it.first});
+        sort(movies.begin(),movies.end());
+        for(auto i:movies) ans.push_back(i.second);
+        return ans;
+    }
+};
